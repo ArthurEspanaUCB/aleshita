@@ -524,6 +524,7 @@
             });
         }
 
+        // Navegación con teclado (PC)
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowRight') {
                 currentSlideIndex = (currentSlideIndex + 1) % slides.length;
@@ -531,6 +532,34 @@
             } else if (event.key === 'ArrowLeft') {
                 currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
                 showSlide(currentSlideIndex);
+            }
+        });
+
+        // Navegación táctil (móvil)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const minSwipeDistance = 50;
+
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+            }
+        });
+        document.addEventListener('touchend', function(e) {
+            if (e.changedTouches.length === 1) {
+                touchEndX = e.changedTouches[0].clientX;
+                const diff = touchEndX - touchStartX;
+                if (Math.abs(diff) > minSwipeDistance) {
+                    if (diff < 0) {
+                        // Swipe izquierda: siguiente slide
+                        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                        showSlide(currentSlideIndex);
+                    } else {
+                        // Swipe derecha: slide anterior
+                        currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+                        showSlide(currentSlideIndex);
+                    }
+                }
             }
         });
         
