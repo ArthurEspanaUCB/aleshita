@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&family=Poppins:wght@700&family=Caveat&family=Amatic+SC:wght@700&family=Patrick+Hand&family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #333;
+        }
+
+        .presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.9s ease-in-out;
+            text-align: center;
+            color: #4A4A4A;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide h1 {
+            font-size: 2.5vw;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .slide p {
+            font-size: 5vw;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.1); }
+            80% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes stamp {
+            0% { transform: scale(2); opacity: 0; }
+            50% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            75% { transform: rotate(-2deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes gentleGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+        }
+         @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotateZ(0deg); }
+            100% { transform: translateY(100vh) rotateZ(360deg); }
+        }
+        .active .animated {
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-out;
+        }
+
+        /* --- Slide Specific Styles --- */
+
+        /* Slide 1: Downyshita */
+        #slide1 {
+            background: linear-gradient(135deg, #E6E6FA, #FFDFD3);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4vw;
+        }
+        #slide1 .photo-container {
+            position: static;
+            width: 22vw;
+            height: 22vw;
+            min-width: 180px;
+            min-height: 180px;
+            max-width: 300px;
+            max-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            box-shadow: 10px 40px 60px rgba(240, 1, 200, 0.2);
+        }
+        #slide1 img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        #slide1 .text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1vw;
+        }
+        #slide1 h1 {
+            font-family: 'Pacifico', cursive;
+            color: #c634eb;
+            font-size: 3.5vw;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.10);
+            margin: 0 0 0.5vw 0;
+            letter-spacing: 1px;
+            animation-delay: 0.2s;
+        }
+        #slide1 p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5vw;
+            color: #4A4A4A;
+            font-weight: 700;
+            margin: 0;
+            animation-delay: 0.5s;
+        }
+
+        /* Slide 2: Olvidar */
+        #slide2 { background-color: #B5EAD7; }
+        #slide2 .background-photo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; }
+        #slide2 .text-box { background-color: rgba(181, 234, 215, 0.85); padding: 20px 40px; border-radius: 15px; }
+        #slide2 h1 { color: #fff; text-shadow: 1px 1px 2px #4A4A4A; }
+        #slide2 p { font-family: 'Caveat', cursive; font-size: 4.5vw; color: #4A4A4A; }
+
+        /* Slide 3: Vieja */
+        #slide3 { background-color: #FFFACD; }
+        #slide3 .confetti { position: absolute; width: 10px; height: 10px; background-color: #FFDAB9; top: -20px; animation: confetti-fall 5s linear infinite; }
+        #slide3 .confetti:nth-child(2) { left: 20%; background: #CDECFC; animation-delay: -1s; animation-duration: 6s; }
+        #slide3 .confetti:nth-child(3) { left: 50%; background: #B5EAD7; animation-delay: -2.5s; animation-duration: 4s; }
+        #slide3 .confetti:nth-child(4) { left: 80%; background: #F7CAC9; animation-delay: -4s; animation-duration: 5.5s; }
+        #slide3 .number-23 { font-family: 'Amatic SC', cursive; font-size: 25vw; color: white; -webkit-text-stroke: 3px #4A4A4A; line-height: 1; }
+        #slide3 p { font-family: 'Patrick Hand', cursive; font-size: 3.5vw; }
+
+        /* Slide 4: Conocer */
+        #slide4 { background-color: #CDECFC; flex-direction: row; justify-content: space-around; }
+        #slide4 .photo-container { flex-basis: 40%; }
+        #slide4 img { max-width: 100%; border-radius: 20px; box-shadow: 0 5px 25px rgba(0,0,0,0.15); }
+        #slide4 .dialog-bubble { flex-basis: 50%; background: white; padding: 30px; border-radius: 25px; position: relative; }
+        #slide4 .dialog-bubble::before { content: ''; position: absolute; left: -30px; top: 50%; transform: translateY(-50%); border-width: 15px; border-style: solid; border-color: transparent white transparent transparent; }
+        #slide4 p { font-size: 3vw; }
+
+        /* Slide 5: Rata */
+        #slide5 {
+            background: linear-gradient(120deg, #bca27a 60%, #e6d3a3 100%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5vw;
+            gap: 4vw;
+        }
+        #slide5 .text-box {
+            background: none;
+            backdrop-filter: none;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1;
+            padding: 0;
+        }
+        #slide5 .rata-text-1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5vw;
+            color: #7c5c2b;
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 8px #fff6e6;
+        }
+        #slide5 .rata-text-2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 8vw;
+            color: #e6b800;
+            font-weight: 900;
+            margin: 0 0 1vw 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px #fff6e6;
+        }
+        #slide5 .cheese-emoji {
+            font-size: 7vw;
+            margin-top: 1vw;
+            filter: drop-shadow(2px 4px 6px #bca27a);
+        }
+        #slide5 .video-container {
+            width: 22vw;
+            min-width: 180px;
+            max-width: 320px;
+            height: 60vh;
+            max-height: 70vh;
+            aspect-ratio: 9/16;
+            margin: 0 0 0 2vw;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            z-index: 2;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #slide5 video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px;
+            background: #000;
+        }
+
+        /* Slide 6: Downy */
+        #slide6 {
+            background: linear-gradient(120deg, #b6e2f7 60%, #e6f7d4 100%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4vw;
+            padding: 0 5vw;
+        }
+        #slide6 .text-container {
+            flex-basis: 50%;
+            color: #2d3a4a;
+            text-shadow: 2px 2px 8px #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1vw;
+        }
+        #slide6 .downy-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5vw;
+            color: #3bb273;
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 8px #e6f7d4;
+        }
+        #slide6 .photo-container {
+            flex-basis: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #slide6 img {
+            max-width: 90%;
+            max-height: 60vh;
+            border-radius: 20px;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            object-fit: cover;
+        }
+
+        /* Slide 7: Corazon */
+        #slide7 { background-color: #F7CAC9; }
+        #slide7 .heart-icon { font-size: 20vw; color: rgba(255, 255, 255, 0.5); position: absolute; z-index: 0; }
+        #slide7 .text-box { z-index: 1; }
+        #slide7 h1 { color: white; font-family: 'Pacifico', cursive; }
+        #slide7 p { font-family: 'Caveat', cursive; font-size: 4vw; color: #4A4A4A; }
+        #slide7 img { position: absolute; bottom: 30px; right: 30px; width: 15vw; height: 15vw; border-radius: 50%; object-fit: cover; border: 4px solid white; }
+
+        /* Slide 8: Inimaginable */
+        #slide8 {
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: center;
+            background: none;
+        }
+        #slide8 .background-photo {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+            z-index: 0;
+        }
+        #slide8 .text-box {
+            z-index: 1;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            background: none;
+            border-radius: 0;
+            padding: 3vw 4vw;
+            margin-left: 0;
+            margin-bottom: 6vh;
+            max-width: 50vw;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: none;
+        }
+        #slide8 h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8vw;
+            color: white;
+            margin: 0 0 1vw 0;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+            text-align: center;
+        }
+        #slide8 p {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2vw;
+            color: white;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: center;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+        }
+
+        /* Slide 9: Te quiero */
+        #slide9 {
+            background: linear-gradient(120deg, #23242a 70%, #23242a 100%);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            height: 100%;
+        }
+        #slide9 p {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2vw;
+            color: white;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: center;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+            z-index: 2;
+            max-width: 40vw;
+            margin-bottom: 0;
+        }
+        #slide9 img {
+            position: static;
+            width: 28vw;
+            min-width: 180px;
+            max-width: 350px;
+            height: 60vh;
+            max-height: 70vh;
+            object-fit: cover;
+            border-radius: 24px;
+            margin-left: 3vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            z-index: 1;
+        }
+
+        /* Slide 10: Orgulloso */
+        #slide10 { background-color: #fff; flex-direction: row-reverse; justify-content: space-around; }
+        #slide10 .photo-container { flex-basis: 40%; }
+        #slide10 img { max-width: 100%; border-radius: 20px; }
+        #slide10 .text-container { flex-basis: 50%; }
+        #slide10 h1 { color: #F88379; }
+        #slide10 p { font-size: 4vw; color: #4A4A4A; }
+        #slide10 .icon { font-size: 4vw; color: #F88379; margin-top: 15px; }
+
+        /* Slide 11: Feliz Cumpleaños */
+        #slide11 { background-color: #FFFACD; }
+        #slide11 .text-box { z-index: 1; }
+        #slide11 h1 { font-family: 'Pacifico', cursive; color: #F88379; font-size: 5vw; }
+        #slide11 p { font-family: 'Amatic SC', cursive; font-size: 8vw; color: #4A4A4A; }
+        #slide11 img { margin-top: 20px; max-height: 40%; border-radius: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+
+        <div class="slide active" id="slide1">
+            <div class="photo-container animated" style="animation-name: zoomIn;">
+                <img src="downy1.jpg" >
+            </div>
+            <div class="text-content">
+                <h1 class="animated" style="animation-name: fadeIn;">Para la Aleshita A.K.A</h1>
+                <p class="animated" style="animation-name: zoomIn;">Downyshita</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide2">
+            <img class="background-photo" src="fotos/foto_calendario.jpg">
+            <div class="text-box animated" style="animation-name: fadeIn;">
+                <p>No pienses que me iba a olvidar de tí este día</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide3">
+             <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+            <h1 class="animated" style="animation-name: fadeIn;">Hoy es tu cumpleaños</h1>
+            <div class="number-23 animated" style="animation-name: bounceIn;">23</div>
+            <p>Cada día más vieja</p>
+        </div>
+
+        <div class="slide" id="slide4">
+            <div class="photo-container animated" style="animation-name: zoomIn;">
+                <img src="downy2.jpg">
+            </div>
+            <div class="dialog-bubble animated" style="animation-name: fadeIn; animation-delay: 0.3s;">
+                <h1>Como una de las pocas personas que más te llega a conocer, </h1>
+                <p>te puedo decir que...</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide5">
+            <div class="text-box animated" style="animation-name: stamp;">
+                <span class="rata-text-1">Eres una</span>
+                <span class="rata-text-2">rata</span>
+                <span class="cheese-emoji">🧀</span>
+            </div>
+            <div class="video-container">
+                <video src="downy4.mp4" autoplay loop muted playsinline></video>
+            </div>
+        </div>
+
+        <div class="slide" id="slide6">
+            <div class="text-container animated" style="animation-name: wobble;">
+                <span class="downy-text">Y medio downy también</span>
+            </div>
+            <div class="photo-container animated" style="animation-name: zoomIn; animation-delay: 0.3s;">
+                <img src="down3.jpg">
+            </div>
+        </div>
+
+        <div class="slide" id="slide7">
+            <div class="heart-icon">❤</div>
+            <img src="down5.jpg" class="animated" style="animation-name: zoomIn; animation-delay: 0.5s;">
+            <div class="text-box animated" style="animation-name: fadeIn;">
+                <h1 class="animated" style="animation-name: fadeIn; color: #f7270c; text-shadow: 2px 2px 8px #fff, 0 0 10px #f7cac9;">Ah, e igual.</h1>
+                <p> Eres una gran persona, con un lindo corazón.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide8">
+            <img class="background-photo animated" src="down6.jpg" style="animation-name: zoomIn;">
+            <div class="text-box animated" style="animation-name: fadeIn; animation-delay: 0.5s;">
+                <h1>Nunca me hubiese imaginado</h1>
+                <p> tener una relación tan linda como la que tuve contigo con nadie.</p>
+            </div>
+        </div>
+        
+        <div class="slide" id="slide9">
+            <p class="animated" style="animation-name: gentleGlow; animation-delay: 0.5s; animation-duration: 2s;">Te quiero como nunca antes había querido a alguien</p>
+            <img src="down7.jpg" class="animated" style="animation-name: zoomIn;">
+        </div>
+
+        <div class="slide" id="slide10">
+            <div class="photo-container animated" style="animation-name: zoomIn;">
+                <img src="down8.jpg">
+            </div>
+            <div class="text-container animated" style="animation-name: fadeIn;">>
+                <p>Te admiro y estoy orgulloso de ti</p>
+                <div class="icon">🏆</div>
+            </div>
+        </div>
+        
+        <div class="slide" id="slide11">
+             <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+            <div class="text-box animated" style="animation-name: fadeIn;">
+                <h1>Waskita</h1>
+                <p class="animated" style="animation-name: bounceIn; animation-delay: 0.3s;">Feliz Cumpleaños 2025</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                showSlide(currentSlideIndex);
+            } else if (event.key === 'ArrowLeft') {
+                currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+                showSlide(currentSlideIndex);
+            }
+        });
+        
+        // Initialize first slide
+        showSlide(currentSlideIndex);
+    </script>
+</body>
+</html>
