@@ -412,6 +412,37 @@
         #slide11 p { font-family: 'Amatic SC', cursive; font-size: 8vw; color: #4A4A4A; }
         #slide11 img { margin-top: 20px; max-height: 40%; border-radius: 15px; }
 
+        .arrow-nav {
+            position: fixed;
+            bottom: 4vh;
+            left: 0;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .arrow-btn {
+            background: rgba(255,255,255,0.85);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 2.5rem;
+            color: #c634eb;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            margin: 0 18px;
+            pointer-events: auto;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .arrow-btn:active {
+            background: #c634eb;
+            color: #fff;
+            transform: scale(0.92);
+        }
+        @media (min-width: 900px) {
+            .arrow-nav { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -514,6 +545,11 @@
 
     </div>
 
+    <div class="arrow-nav">
+        <button id="arrow-left" class="arrow-btn">&#8592;</button>
+        <button id="arrow-right" class="arrow-btn">&#8594;</button>
+    </div>
+
     <script>
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
@@ -563,6 +599,16 @@
             }
         });
         
+        // Flechas táctiles para móvil
+        document.getElementById('arrow-left').addEventListener('click', function() {
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        });
+        document.getElementById('arrow-right').addEventListener('click', function() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        });
+
         // Initialize first slide
         showSlide(currentSlideIndex);
     </script>
